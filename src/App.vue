@@ -11,5 +11,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+@import url(./assets/less/reset.less);
+@import url(./assets/less/config.less);
 </style>
