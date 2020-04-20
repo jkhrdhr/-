@@ -10,14 +10,14 @@
           <a href="#">协议规则</a>
         </div>
         <div class="topbar-right">
-          <a href="" v-if='userName'>{{userName}}</a>
-          <router-link :to="{name:'login'}" v-if='!userName'>登陆</router-link>
-          <a href="" v-if="!userName">注册</a>
+          <a href="" v-if='userMsg.username'>{{userMsg.username}}</a>
+          <router-link :to="{name:'login'}" v-if='!userMsg.username'>登陆</router-link>
+          <a href="" v-if="!(userMsg.username)">注册</a>
           <a href="" v-else @click.prevent="logout">退出</a>
-          <router-link :to="{name:'orderList'}" v-if="userName">我的订单</router-link>
+          <router-link :to="{name:'orderList'}" v-if="userMsg">我的订单</router-link>
           <router-link :to="{name:'card'}" class="my-car">
             <i class="el-icon-shopping-cart-2"></i>
-            购物车</router-link>
+            购物车({{cardList.length}})</router-link>
         </div>
       </div>
     </div>
@@ -88,15 +88,17 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'nav-header',
   data () {
     return {
-      //     用户名
-      userName: 'jk',
       // 商品数组
       shopList: []
     }
+  },
+  computed: {
+    ...mapState(['cardList', 'userMsg'])
   },
   created () {
     this.getShopList()
@@ -107,10 +109,13 @@ export default {
       return `￥${price.toFixed(2)}元`
     }
   },
+  inject: ['getUserMsg', 'getCard'],
   methods: {
     //   退出登录
-    async  logout () {
+    async logout () {
       await this.axios.post('/user/logout')
+      this.getUserMsg()
+      this.getCard()
     },
     async getShopList () {
       const data = await this.axios.get('/products', {

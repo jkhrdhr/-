@@ -9,6 +9,7 @@ import Order from '../pages/order.vue'
 import OrderConfirm from '../pages/orderConfirm.vue'
 import OrderPay from '../pages/orderPay.vue'
 import OrderList from '../pages/orderList.vue'
+import Login from '../pages/login.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -19,7 +20,7 @@ const routes = [
             redirect: '/index',
             children: [
                   {
-                        path: '/index',
+                        path: 'index',
                         name: 'index',
                         component: Index
                   },
@@ -39,6 +40,11 @@ const routes = [
             path: '/card',
             name: 'card',
             component: Card
+      },
+      {
+            path: '/login',
+            name: 'login',
+            component: Login
       },
       {
             path: '/order',

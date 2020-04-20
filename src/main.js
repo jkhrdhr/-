@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import vueAxios from 'vue-axios'
+import vueCookie from 'vue-cookie'
 import VueLazyLoad from 'vue-lazyload'
 // import env from './env'
 import './plugins/element.js'
@@ -15,17 +16,22 @@ axios.defaults.timeout = 8000
 // // 响应拦截器
 axios.interceptors.response.use(function (response) {
       const res = response.data
+      const path = location.hash
       if (res.status === 0) {
             return res.data
       } else if (res.status === 10) {
-            window.location.href = '/#/login'
+            if (path !== '#/index') {
+                  window.location.href = '/#/login'
+            }
       } else {
-            return res.msg
+            alert(res.msg)
+            throw res.msg
       }
 })
 Vue.use(VueLazyLoad, {
       loading: '/imgs/loading-svg/loading-bars.svg'
 })
+Vue.use(vueCookie)
 Vue.use(vueAxios, axios)
 Vue.config.productionTip = true
 
