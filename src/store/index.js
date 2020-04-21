@@ -6,11 +6,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
       state: {
             cardList: [],
-            userMsg: {}
+            userMsg: {},
+            cardNum: 0
       },
       mutations: {
             modCardListA (state, list) {
                   state.cardList = list
+            },
+            modCardNumA (state, num) {
+                  state.cardNum = num
             },
             // 修改用户数据
             modUserMsgA (state, msg) {
@@ -20,6 +24,9 @@ export default new Vuex.Store({
       actions: {
             modCardList (content, list) {
                   content.commit('modCardListA', list)
+            },
+            modCardNum (content, num) {
+                  content.commit('modCardNumA', num)
             },
             modUserMsg (content, msg) {
                   content.commit('modUserMsgA', msg)

@@ -64,7 +64,6 @@ export default {
         }
       })
       this.photoList = data.list
-      console.log(data.list)
     },
     addCard (id) {
       this.cutModal = true

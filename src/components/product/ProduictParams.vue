@@ -12,7 +12,7 @@
           <li></li>
           <li><a href="javascript:;">用户评价</a></li>
         </ul>
-        <a class="btn">立即购买</a>
+        <button v-if="btnShow" class="btn" @click="goDetail()">立即购买</button>
       </div>
     </div>
   </div>
@@ -24,6 +24,12 @@ export default {
       scrollclass: false
     }
   },
+  props: {
+    shopId: [String, Number],
+    btnShow: {
+      default: true
+    }
+  },
   mounted () {
     window.addEventListener('scroll', this.scroll)
   },
@@ -31,7 +37,14 @@ export default {
     scroll () {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYoffset
       this.scrollclass = scrollTop >= 152
-      console.log(1)
+    },
+    goDetail () {
+      this.$router.push({
+        name: 'detail',
+        params: {
+          id: this.shopId
+        }
+      })
     }
   },
   destroyed () {
@@ -46,6 +59,8 @@ export default {
   left: 50%;
   margin-left: -613px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  z-index: 2;
 }
 .content {
   height: 70px;
@@ -88,6 +103,7 @@ export default {
       margin-left: 20px;
       cursor: pointer;
       margin-right: 5px;
+      border: 0;
     }
   }
 }

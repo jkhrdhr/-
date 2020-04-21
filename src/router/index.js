@@ -4,7 +4,7 @@ import Home from '../pages/home.vue'
 import Index from '../pages/index.vue'
 import Product from '../pages/product.vue'
 import Detail from '../pages/detail.vue'
-import Card from '../pages/cart.vue'
+import Card from '../components/pages/cart.vue'
 import Order from '../pages/order.vue'
 import OrderConfirm from '../pages/orderConfirm.vue'
 import OrderPay from '../pages/orderPay.vue'
@@ -27,12 +27,14 @@ const routes = [
                   {
                         path: 'product/:id',
                         name: 'product',
-                        component: Product
+                        component: Product,
+                        props: true
                   },
                   {
                         path: 'detail/:id',
                         name: 'detail',
-                        component: Detail
+                        component: Detail,
+                        props: true
                   }
             ]
       },

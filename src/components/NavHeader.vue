@@ -199,7 +199,7 @@ export default {
     .header-menu {
       width: 850px;
       height: 100%;
-      z-index: 100000000000000;
+      z-index: 9;
       padding-left: 209px;
       .flex(flex-start);
       .item-menu {
