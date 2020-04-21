@@ -93,7 +93,7 @@ export default {
         selected: true
       })
       this.$store.dispatch('modCardNum', res.cartTotalQuantity || 0)
-      this.$router.push('/card')
+      this.$router.push('/order/orderCard')
     }
   }
 }

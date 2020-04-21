@@ -4,12 +4,12 @@ import Home from '../pages/home.vue'
 import Index from '../pages/index.vue'
 import Product from '../pages/product.vue'
 import Detail from '../pages/detail.vue'
-import Card from '../components/pages/cart.vue'
 import Order from '../pages/order.vue'
 import OrderConfirm from '../pages/orderConfirm.vue'
 import OrderPay from '../pages/orderPay.vue'
 import OrderList from '../pages/orderList.vue'
 import Login from '../pages/login.vue'
+import OrderCard from '../pages/orderCard.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -39,11 +39,6 @@ const routes = [
             ]
       },
       {
-            path: '/card',
-            name: 'card',
-            component: Card
-      },
-      {
             path: '/login',
             name: 'login',
             component: Login
@@ -67,6 +62,11 @@ const routes = [
                         path: 'orderList',
                         name: 'orderList',
                         component: OrderList
+                  },
+                  {
+                        path: 'orderCard',
+                        name: 'card',
+                        component: OrderCard
                   }
             ]
       }

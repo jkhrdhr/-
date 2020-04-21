@@ -1,7 +1,7 @@
 // 购物车
 <template>
   <div>
-    card
+
   </div>
 </template>
 <script>
