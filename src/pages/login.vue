@@ -34,8 +34,8 @@ import LoginFooter from '../components/login/LoginFooter'
 export default {
   data () {
     return {
-      username: '',
-      password: ''
+      username: 'admin',
+      password: 'admin'
     }
   },
   methods: {

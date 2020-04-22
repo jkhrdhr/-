@@ -229,7 +229,7 @@ export default {
       height: 451px;
     }
     .navs {
-      z-index: 10000;
+      z-index: 8;
       position: absolute;
       top: 0;
       left: 0;

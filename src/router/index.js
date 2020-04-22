@@ -5,11 +5,12 @@ import Index from '../pages/index.vue'
 import Product from '../pages/product.vue'
 import Detail from '../pages/detail.vue'
 import Order from '../pages/order.vue'
-import OrderConfirm from '../pages/orderConfirm.vue'
-import OrderPay from '../pages/orderPay.vue'
+import OrderConfirm from '../components/pages/OrderConfirm.vue'
+import OrderPay from '../components/pages/OrderPay.vue'
 import OrderList from '../pages/orderList.vue'
 import Login from '../pages/login.vue'
 import OrderCard from '../pages/orderCard.vue'
+import AliPay from '../components/pages/AliPay.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -54,9 +55,10 @@ const routes = [
                         component: OrderConfirm
                   },
                   {
-                        path: 'orderPay',
+                        path: 'orderPay/:orderNo',
                         name: 'orderPay',
-                        component: OrderPay
+                        component: OrderPay,
+                        props: true
                   },
                   {
                         path: 'orderList',
@@ -67,6 +69,11 @@ const routes = [
                         path: 'orderCard',
                         name: 'card',
                         component: OrderCard
+                  },
+                  {
+                        path: 'aliPay',
+                        name: 'aliPay',
+                        component: AliPay
                   }
             ]
       }

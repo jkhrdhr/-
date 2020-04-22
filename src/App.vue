@@ -19,7 +19,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['modCardList', 'modUserMsg']),
+    ...mapActions(['modCardNum', 'modUserMsg']),
     async getUserMsg () {
       const res = await this.axios.get('/user')
       if (res) { this.modUserMsg(res) } else {
@@ -27,10 +27,8 @@ export default {
       }
     },
     async getCard () {
-      const res = await this.axios.get('/carts')
-      const cartProductVoList = res ? res.cartProductVoList : []
-      this.modCardList(cartProductVoList)
-      console.log(1)
+      const res = await this.axios.get('/carts/products/sum')
+      this.modCardNum(res)
     }
   }
 }

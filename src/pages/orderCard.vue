@@ -23,8 +23,8 @@
           </el-table-column>
           <el-table-column prop="quantity" label="数量" width="272">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.quantity" @change="alterNum(scope.row)" :min="1" :max="100"
-                label="描述文字"></el-input-number>
+              <el-input-number v-model="scope.row.quantity" @change="alterNum(scope.row)" :min="1"
+                :max="scope.row.productStock" label="描述文字"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column prop="productTotalPrice" label="小计" width="136">
@@ -41,11 +41,11 @@
         <div class="wrap">
           <div class="order-lf">
             <router-link tag="a" :to="{name:'index'}">继续购物</router-link>
-            <div>共 {{cardList.length}} 件商品，已选择 件</div>
+            <div>共 {{cardList.length}} 件商品，已选择 {{addNums}} 件</div>
           </div>
           <div class="order-ri">
             <div class="price">合计：{{cartTotalPrice}} 元</div>
-            <button>去结算</button>
+            <button @click="order">去结算</button>
           </div>
         </div>
       </div>
@@ -116,10 +116,31 @@ export default {
         selected
       })
       this.getCardList()
+    },
+    //     结算
+    order () {
+      const flag = this.cardList.some(item => {
+        return item.productSelected
+      })
+      if (flag) {
+        this.$router.push({
+          name: 'orderConfirm'
+        })
+      } else {
+        this.$message.error('请至少选择一项进行支付')
+      }
     }
   },
   created () {
     this.getCardList()
+  },
+  computed: {
+    addNums: function () {
+      const leg = this.cardList.filter(item => {
+        return item.productSelected
+      })
+      return leg.length
+    }
   },
   components: {
     OrderHeader

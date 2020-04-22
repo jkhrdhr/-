@@ -93,7 +93,6 @@ export default {
     //     获取商品信息
     async getShopMessage () {
       const res = await this.axios.get(`/products/${this.id}`)
-      console.log(res)
       this.shopMessage = res
     }
   },

@@ -10,14 +10,14 @@
           <a href="#">协议规则</a>
         </div>
         <div class="topbar-right">
-          <a href="" v-if='userMsg.username'>{{userMsg.username}}</a>
+          <a href="javascript:;" v-if='userMsg.username'>{{userMsg.username}}</a>
           <router-link :to="{name:'login'}" v-if='!userMsg.username'>登陆</router-link>
-          <a href="" v-if="!(userMsg.username)">注册</a>
+          <a href="javascript:;" v-if="!(userMsg.username)">注册</a>
           <a href="" v-else @click.prevent="logout">退出</a>
           <router-link :to="{name:'orderList'}" v-if="userMsg">我的订单</router-link>
           <router-link :to="{name:'card'}" class="my-car">
             <i class="el-icon-shopping-cart-2"></i>
-            购物车({{cardList.length}})</router-link>
+            购物车({{cardNum}})</router-link>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['cardList', 'userMsg'])
+    ...mapState(['cardNum', 'userMsg'])
   },
   created () {
     this.getShopList()
@@ -114,8 +114,10 @@ export default {
     //   退出登录
     async logout () {
       await this.axios.post('/user/logout')
-      this.getUserMsg()
-      this.getCard()
+      this.$message.success('退出成功！')
+      this.$cookie.delete('userid')
+      this.$store.commit('modCardNumA', 0)
+      this.$store.commit('modUserMsgA', {})
     },
     async getShopList () {
       const data = await this.axios.get('/products', {
