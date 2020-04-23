@@ -20,7 +20,7 @@ export default {
     PaddIng
   },
   methods: {
-    //   去支付
+    //   去支付宝支付
     async payment () {
       const res = await this.axios.post('/pay', {
         orderId: this.$route.query.id,

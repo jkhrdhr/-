@@ -46,10 +46,10 @@
             <div class="pay-kind">
               <h2>支付平台</h2>
               <div class="pay-kind-box">
-                <div class="zfb" @click="goAliPay">
+                <div class="zfb" @click="goAliPay(1)">
                   <img src="/imgs/pay/icon-ali.png" alt="">
                 </div>
-                <div class="weixin">
+                <div class="weixin" @click="goAliPay(2)">
                   <img src="/imgs/pay/icon-wechat.png" alt="">
                 </div>
               </div>
@@ -58,20 +58,27 @@
         </div>
       </div>
     </div>
+    <pay-code v-if="showPay" :img='content'>
+
+    </pay-code>
   </div>
 </template>
 <script>
 import OrderHeader from '../order/OrderHeader'
+import PayCode from '../Pay/PayCode'
+import QRCode from 'qrcode'
 export default {
   data () {
     return {
       show: false,
       orderDetails: {},
       // 地址
-      shippingVo: {}
+      shippingVo: {},
+      content: '',
+      showPay: false
     }
   },
-  props: ['orderNo'],
+  props: ['c'],
   methods: {
     //   获取当前订单详情
     async  getOrderDetails () {
@@ -80,16 +87,33 @@ export default {
       this.orderDetails = res
       this.shippingVo = res.shippingVo
     },
-    //     跳转支付宝页面
-    goAliPay () {
-      window.open('/#/order/aliPay?id=' + this.orderNo, '_blank')
+    //     跳转支付页面
+    async goAliPay (payType) {
+      if (payType === 1) {
+        // 支付宝页面
+        window.open('/#/order/aliPay?id=' + this.orderNo, '_blank')
+      } else if (payType === 2) {
+        // 微信页面
+        const res = await this.axios.post('/pay', {
+          orderId: this.orderNo,
+          orderName: 'jinkun', // 扫码支付时订单名称
+          amount: '0.01', // 单位元
+          payType: 2 // 1支付宝，2微信
+        })
+        QRCode.toDataURL(res.content)
+          .then(url => {
+            this.content = url
+          })
+        this.showPay = true
+      }
     }
   },
   created () {
     this.getOrderDetails()
   },
   components: {
-    OrderHeader
+    OrderHeader,
+    PayCode
   }
 }
 </script>
