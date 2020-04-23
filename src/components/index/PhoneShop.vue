@@ -18,7 +18,7 @@
               <p class="shop-referral">{{item.subtitle}}</p>
               <p class="shop-price">
                 {{item.price | getProce}}
-                <a href="" @click.prevent="addCard(item.id)">
+                <a href="" @click.prevent="addCardwindow(item.id)">
                   <i class="el-icon-shopping-cart-full"></i>
                 </a>
               </p>
@@ -43,7 +43,9 @@ export default {
   data () {
     return {
       photoList: [],
-      cutModal: false
+      cutModal: false,
+      // 添加购物车商品ID
+      id: ''
     }
   },
   created () {
@@ -65,14 +67,22 @@ export default {
       })
       this.photoList = data.list
     },
-    addCard (id) {
+    addCardwindow (id) {
       this.cutModal = true
+      this.id = id
     },
     openCard () {
       this.cutModal = false
     },
+    async addCard () {
+      await this.axios.post('/carts', {
+        productId: this.id,
+        selected: true
+      })
+    },
     goCard () {
       this.cutModal = false
+      this.addCard()
       this.$router.push({
         name: 'card'
       })
