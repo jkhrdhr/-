@@ -74,15 +74,12 @@ export default {
     openCard () {
       this.cutModal = false
     },
-    async addCard () {
+    async goCard () {
+      this.cutModal = false
       await this.axios.post('/carts', {
         productId: this.id,
         selected: true
       })
-    },
-    goCard () {
-      this.cutModal = false
-      this.addCard()
       this.$router.push({
         name: 'card'
       })

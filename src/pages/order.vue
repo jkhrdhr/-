@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <nav-header></nav-header>
   </div>
 </template>
@@ -10,6 +12,9 @@ export default {
   name: 'order',
   components: {
     navHeader
+  },
+  deactivated () {
+    this.$destroy(true)
   }
 }
 </script>

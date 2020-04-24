@@ -52,13 +52,16 @@
                 <div class="weixin" @click="goAliPay(2)">
                   <img src="/imgs/pay/icon-wechat.png" alt="">
                 </div>
+                <div class="list" @click="goShopList">
+                  去订单列表
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <pay-code v-if="showPay" :img='content'>
+    <pay-code v-if="showPay" :img='content' @close="showPay=false">
 
     </pay-code>
   </div>
@@ -78,7 +81,7 @@ export default {
       showPay: false
     }
   },
-  props: ['c'],
+  props: ['orderNo'],
   methods: {
     //   获取当前订单详情
     async  getOrderDetails () {
@@ -106,6 +109,12 @@ export default {
           })
         this.showPay = true
       }
+    },
+    //     去订单列表
+    goShopList () {
+      this.$router.push({
+        name: 'orderList'
+      })
     }
   },
   created () {
@@ -263,6 +272,11 @@ export default {
             }
             .weixin {
               margin-left: 20px;
+            }
+            .list {
+              font-size: 18px;
+              padding: 20px 0 0 50px;
+              color: #80c58a;
             }
           }
         }
